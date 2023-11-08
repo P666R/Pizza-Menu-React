@@ -43,6 +43,16 @@ const pizzaData = [
   },
 ];
 
+function App() {
+  return (
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
+    </div>
+  );
+}
+
 function Header() {
   return (
     <header className="header">
@@ -55,33 +65,26 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-      />
 
-      <Pizza
-        name="Pizza Funghi"
-        ingredients="Tomato, mozarella, mushrooms, and onion"
-        photoName="pizzas/funghi.jpg"
-        price={12}
-      />
+      <ul className="pizzas">
+        {pizzaData.map((pizza, index) => (
+          <Pizza key={index} {...pizza} />
+        ))}
+      </ul>
     </main>
   );
 }
 
-function Pizza(props) {
+function Pizza({ name, photoName, ingredients, price }) {
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    <li className="pizza">
+      <img src={photoName} alt={name} />
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price + 2}</span>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>{price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -95,16 +98,6 @@ function Footer() {
     <footer className="footer">
       {new Date().toLocaleTimeString()}. We&apos;re currently open
     </footer>
-  );
-}
-
-function App() {
-  return (
-    <div className="container">
-      <Header />
-      <Menu />
-      <Footer />
-    </div>
   );
 }
 
